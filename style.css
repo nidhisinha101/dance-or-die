@@ -1,0 +1,23 @@
+html, body {
+  margin: 0;
+  padding: 0; 
+}
+
+canvas {
+  display: block;
+  border: 10px solid goldenrod;
+}
+
+h1{
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: #333; 
+}
+
+p{
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+}
