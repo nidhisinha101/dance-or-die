@@ -8,38 +8,61 @@ body{
 }
 
 div {
-  padding: 2px;
+  padding:20px;
   text-align: center;
 }
 
 .grid-wrapper {
+  display: none; /* Deprecated in favor of .parent grid */
+}
+
+.parent {
   display: grid;
   grid-template-columns: 1fr 820px 1fr;
+  width: 100%;
   gap: 0;
   justify-items: center;
-  align-items: center;
-  width: 100%;
+  align-items: start;
   margin: 5px auto;
 }
 
-.left-column {
+.left-column, .right-column {
   width: 100%;
-  padding: 0;
+  height: 620px; /* Visual height to match canvas + border */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* top, middle, bottom */
+  align-items: center;
+  padding: 10px 0;
+}
+
+.col-top img, .col-bottom img {
+  width: 300px;
+  height: auto;
+  display: block;
+}
+
+/* Overlay controls (play button) centered on top of the canvas */
+#controls {
+  position: absolute;
+  top: calc(50% - 375px); 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
   display: flex;
   justify-content: center;
-  align-items: center;
+  pointer-events: auto;
+}
+
+.play-button {
+  background-image: linear-gradient(to right, #ff8ae4, #8cecff);
+  padding: 8px 14px;
+  font-size: 16px;
+  border-radius: 20px;
 }
 
 .center-column {
   width: 820px;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.right-column {
-  width: 100%;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -56,11 +79,15 @@ div {
   margin: 0;
 }
 
-canvas {
-  border: 10px solid goldenrod;
+/* Only apply the golden border to the main sketch canvas inside #container */
+#container canvas {
+  border: 8px solid rgb(62, 0, 129);
+  border-radius:64% 36% 53% 47% / 37% 60% 40% 63% ;
   display: block !important;
   margin: 0 !important;
   position: static !important;
+  animation: swoosh 5s infinite ease-in-out;
+  z-index: 0;
 }
 
 .bouncing-text {
@@ -77,6 +104,21 @@ canvas {
   }
   50% {
       text-shadow: -5px -5px 0 #00d4ff, -10px -10px 0 #ff00c3;
+  }
+}
+
+@keyframes swoosh{
+  0%{
+    border-radius: 64% 36% 53% 47% / 37% 60% 40% 63% ;
+  }
+  25%{
+    border-radius: 36% 64% 47% 53% / 63% 40% 60% 37% ;
+  }
+  75%{
+    border-radius: 80% 20% 74% 26% / 30% 72% 28% 70%  ;
+  }
+  100%{
+    border-radius: 64% 36% 53% 47% / 37% 60% 40% 63%  ;
   }
 }
 
