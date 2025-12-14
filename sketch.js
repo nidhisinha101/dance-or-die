@@ -3,6 +3,7 @@ let poseNet;
 let poses = [];
 let pastPoses = [];
 let maxPoses = 25;
+let song;
 
 let bounceSpeed = 2; // Velocity of bouncing circles
 // Positions of circles
@@ -40,6 +41,19 @@ function setup() {
     video.size(width, height);
 
     colorMode(HSL);
+    song = loadSound('music3.mp3');
+    const playButton = createButton('Get your groove on');
+    playButton.parent('controls');
+    playButton.addClass('play-button');
+    playButton.mousePressed(() => {
+      if (song.isPlaying()) {
+        song.pause();
+        playButton.html('Get your groove on');
+      } else {
+        song.loop();
+        playButton.html('Pause the party');
+      }
+    });
     
     // Initialize circle velocities
     circles[0].vx = bounceSpeed * 0.7;
@@ -253,28 +267,28 @@ function prettyCircle(pose){
     let c, c2; //idea for later: assign the colors randomly
     
     if (pose == "rightHand"){ //Right Hand Blue Circles
-        c = "hsla(200, 83%, 41%, 1.00)";
-        c2 = "hsla(185, 83%, 75%, 1.00)";
+        c = "hsla(200, 83%, 41%, 0.30)";
+        c2 = "hsla(185, 83%, 75%, 0.30)";
     }
     else if (pose == "noseX"){ //Nose Yellow Circles
-        c = "hsla(35, 100%, 50%, 1.00)";
-        c2 = "hsla(50, 100%, 80%, 1.00)";
+        c = "hsla(35, 100%, 50%, 0.30)";
+        c2 = "hsla(50, 100%, 80%, 0.30)";
     }
     else if (pose == "noseY"){  //Nose Green Circles
-        c = "hsla(62, 100%, 59%, 1.00)";
-        c2 = "hsla(46, 100%, 78%, 1.00)";
+        c = "hsla(62, 100%, 59%, 0.30)";
+        c2 = "hsla(46, 100%, 78%, 0.30)";
     }
     else if (pose == "leftHand"){ //Left Hand Pink Circles
-        c = "hsla(308, 100%, 54%, 1.00)";
-        c2 = "hsla(300, 100%, 85%, 1.00)";
+        c = "hsla(308, 100%, 54%, 0.30)";
+        c2 = "hsla(300, 100%, 85%, 0.30)";
     }
     else if (pose == "rightShoulder"){ //Right Shoulder Purple Circles
-        c = "hsla(291, 77%, 40%, 1.00)";
-        c2 = "hsla(270, 100%, 80%, 1.00)";
+        c = "hsla(291, 77%, 40%, 0.30)";
+        c2 = "hsla(270, 100%, 80%, 0.30)";
     }
     else if (pose == "leftShoulder"){ //Left Shoulder Orange Circles
-        c = "hsla(106, 100%, 50%, 1.00)";
-        c2 = "hsla(97, 100%, 57%, 1.00)";
+        c = "hsla(106, 100%, 50%, 0.30)";
+        c2 = "hsla(97, 100%, 57%, 0.30)";
     }
 
     // Draw bouncing circles for this pose using tweened sizes
@@ -300,7 +314,6 @@ function drawRadialGradientCircle(x, y, radius, innerColor, outerColor){
     }
 }
 
-//Sad mode - fade to gray and show message
 function sadMode(){
   filter(GRAY); // Fade to gray when no movement
   push();
